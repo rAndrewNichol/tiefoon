@@ -5,7 +5,7 @@ output: html_document
 
 # NBA Player Evaluation 2015-2016
 
-  This project involves the analyzing of NBA players. Specifically, it attempts to answer the motivating question, *"In the 2015-2016 season, how do the skills of a player relate to his salary?"* Most of the files are stored on the online file-sharing repository Open Science Framework (OSF). After the data was cleaned and exploratory data analysis was performed, an efficiency value was calculated for all players. Finally, two interactive shiny apps were produced to provide a platform for interactive data analysis.
+  This project involves the evaluation of NBA players. Specifically, it attempts to answer the motivating question, *"In the 2015-2016 season, how do the skills of a player relate to his salary?"*. After the data was cleaned and exploratory data analysis was performed, an efficiency value was calculated for all players. Finally, two interactive shiny apps were produced to provide a platform for interactive data analysis.
 
 ## Datasets 
 
