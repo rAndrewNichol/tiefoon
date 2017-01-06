@@ -1,0 +1,225 @@
+=============================================================
+salary:
+
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+    8819  1140000  2807000  4818000  6500000 25310000 
+
+Range: 25300525 
+ 
+Standard Deviation: 5233560 
+=============================================================
+age:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  19.00   23.00   26.00   26.59   29.00   39.00 
+
+Range: 20 
+ 
+Standard Deviation: 4.38244 
+=============================================================
+height:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  69.00   77.00   79.00   79.11   82.00   87.00 
+
+Range: 18 
+ 
+Standard Deviation: 3.455201 
+=============================================================
+weight:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  161.0   200.0   220.0   221.5   240.0   307.0 
+
+Range: 146 
+ 
+Standard Deviation: 26.56733 
+=============================================================
+experience:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   1.000   4.000   4.845   7.000  20.000 
+
+Range: 20 
+ 
+Standard Deviation: 4.307764 
+=============================================================
+games:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   1.00   30.00   60.00   52.19   75.25   82.00 
+
+Range: 81 
+ 
+Standard Deviation: 25.59261 
+=============================================================
+games_started:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    1.00    8.50   24.94   52.00   82.00 
+
+Range: 82 
+ 
+Standard Deviation: 29.34536 
+=============================================================
+minutes_played:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    3.0   379.8  1124.0  1197.0  1933.0  3125.0 
+
+Range: 3122 
+ 
+Standard Deviation: 861.3462 
+=============================================================
+field_goals:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    45.0   148.0   190.2   284.0   805.0 
+
+Range: 805 
+ 
+Standard Deviation: 167.9422 
+=============================================================
+field_goal_attempts:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0   105.5   329.5   419.8   633.2  1617.0 
+
+Range: 1617 
+ 
+Standard Deviation: 364.5005 
+=============================================================
+three_pointers:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    1.00   19.00   42.12   67.00  402.00 
+
+Range: 402 
+ 
+Standard Deviation: 53.59326 
+=============================================================
+three_point_attempts:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0     6.0    61.0   118.9   203.2   886.0 
+
+Range: 886 
+ 
+Standard Deviation: 141.1267 
+=============================================================
+two_pointers:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    31.0   110.0   148.1   224.0   650.0 
+
+Range: 650 
+ 
+Standard Deviation: 139.0506 
+=============================================================
+two_point_attempts:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    68.0   228.5   300.9   450.0  1238.0 
+
+Range: 1238 
+ 
+Standard Deviation: 276.9555 
+=============================================================
+free_throws:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   18.75   51.50   87.85  120.80  720.00 
+
+Range: 720 
+ 
+Standard Deviation: 100.707 
+=============================================================
+free_throw_attempts:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   25.75   66.50  116.20  165.00  837.00 
+
+Range: 837 
+ 
+Standard Deviation: 127.8991 
+=============================================================
+offensive_rebounds:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   10.00   30.00   52.09   68.00  395.00 
+
+Range: 395 
+ 
+Standard Deviation: 59.31092 
+=============================================================
+defensive_rebounds:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    47.0   129.0   166.3   243.0   803.0 
+
+Range: 803 
+ 
+Standard Deviation: 146.9983 
+=============================================================
+total_rebounds:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    61.5   168.5   218.4   302.2  1198.0 
+
+Range: 1198 
+ 
+Standard Deviation: 199.2337 
+=============================================================
+assists:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    22.0    67.0   109.7   144.0   839.0 
+
+Range: 839 
+ 
+Standard Deviation: 130.9801 
+=============================================================
+steals:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   11.00   29.00   38.89   58.00  169.00 
+
+Range: 169 
+ 
+Standard Deviation: 35.3236 
+=============================================================
+blocks:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    4.00   14.00   24.92   33.00  269.00 
+
+Range: 269 
+ 
+Standard Deviation: 32.27253 
+=============================================================
+turnovers:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   17.75   54.00   68.18   99.00  374.00 
+
+Range: 374 
+ 
+Standard Deviation: 62.63937 
+=============================================================
+personal_fouls:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    39.0   100.5   100.3   154.2   258.0 
+
+Range: 258 
+ 
+Standard Deviation: 68.09009 
+=============================================================
+points:
+
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0   122.0   398.0   510.5   769.5  2376.0 
+
+Range: 2376 
+ 
+Standard Deviation: 463.0076 

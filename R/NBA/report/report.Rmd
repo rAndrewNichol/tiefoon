@@ -1,0 +1,44 @@
+---
+title: "NBA Player Evaluation"
+author: "R Andrew Nichol"
+date: "December 1, 2016"
+output: html_document
+---
+# REPORT IS IN PROGRESS. In the meantime, please see slides for summary of project. */slides*
+
+
+#Abstract
+
+
+#Introduction 
+
+
+#Data
+
+
+#Methodology 
+
+
+
+#Results
+<!-- When looking at the results of the EFF calculation, we first look at the results that PCA returned. We did a PCA based on five positions, and the PCA returned 8 weights, one for each variable in the modified EFF formula. The PCA was scaled, in that the data inputted was mean-centered and standardized. 
+One measure taken to ensure correctness was to look at the majority of the signs of the weights to see if they were positive, due to the fact that the prcomp() function used could return different results based on different machines. If most of the signs were negative, we shifted signs to make the results positive. The EFF calculation was carried out with the PCA weights as above, and results were collected into a table. We found that the five players with the highest EFF values were James Harden (EFF = 13.542777), DeMarcus Cousins (12.236836), Draymond Green (11.586102), Anthony Davis (11.237684) , and LeBron James (11.117361). This is consistent with what people think to be good players in the NBA. It is unsurprising that the highest EFF values are correlated with high values in all other categories (such as number of points, rebounds, assists, etc). Players with the lowest EFF values are correlated with single-digit values of statistics - for example, the player with the lowest EFF, Bryce Cotton, had a total of 4 points, and zeroes in every other category, except games played. This follows logically, as high statistics lead to a higher EFF.
+
+
+The top five most valuable players, according to our formula, are:   
+1. Jerami Grant, Value:7.701e-06  
+2. Jordan Clarkson, Value:7.662e-06  
+3. T.J. McConnell, Value:7.658e-06  
+4. Hassan Whiteside, Value:7.608e-06  
+5. Josh Richardson, Value:7.465e-06  
+
+
+The five least valuable players are:  
+1. Roy Hibbert, Value:2.41e-07  
+2. Omer Asik, Value:2.45e-07  
+3. Enes Kanter, Value:2.65e-07  
+4. Kobe Bryant, Value:2.72e-07  
+5. Derrick Rose, Value:3e-07  
+
+During the analysis to find the most valuable and least valuable players, outliers (players who had been on the payroll for multiple teams) were excluded as they tended to come up as the most undervalued players. This result arose because their stats were only recorded for their most recent team, while their total annual salary had been recorded. Therefore, the list of 20 least valuable players considers those players who accumulated stats for only one team throughout the season and participated in at least 30 games.
+-->
