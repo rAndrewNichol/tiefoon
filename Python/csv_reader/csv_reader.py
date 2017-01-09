@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 
 # APPARENTLY PANDAS HAS BUILT-IN CSV READER pandas.read_csv(). DARN
-# fix so can use absolute OR relative paths?
+# Of course, these functions will work with numpy arrays and python lists as well as pd.DataFrames
 
+# Assumes header, alter later?
 def read_csv(file = "", pandas = True):
     cursor = open(file)
     reader_object = csv.reader(cursor)
@@ -25,7 +26,8 @@ def read_csv(file = "", pandas = True):
         array.insert(0, header)
         return array
 
-# fix so can use absolute OR relative paths?
+# Pandas also has pd.DataFrame.to_csv()  :P
+
 def write_csv(file = "", array = []):
     if type(array) == pd.core.frame.DataFrame:
         header = list(array.columns)
@@ -35,5 +37,4 @@ def write_csv(file = "", array = []):
     writer = csv.writer(cursor)
     for row in array:
         writer.writerow(row)
-
 
