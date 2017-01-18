@@ -23,3 +23,4 @@ def random_play(doors = ["Goat","Car","Goat"], switch = True):
         if pick in goats:
             return "Goat"
         else: return "Car"
+
