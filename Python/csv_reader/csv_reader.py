@@ -38,3 +38,4 @@ def write_csv(file = "", array = []):
     for row in array:
         writer.writerow(row)
 
+
