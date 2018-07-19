@@ -4,6 +4,7 @@
 int main(){
     Trie t;
     std::string temp = "bullshit";
-    t.grow(temp);
+    int _id = 1;
+    t.grow(temp, _id);
     return 0;
 }
