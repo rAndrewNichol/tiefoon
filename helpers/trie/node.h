@@ -15,6 +15,9 @@ struct Node{
     Node(char tmp_value, bool tmp_endpoint = false){
         value = tmp_value;
         endpoint = tmp_endpoint;
+		if(!endpoint){
+			children = new std::vector<Node>;
+		}
     }
 };
 
