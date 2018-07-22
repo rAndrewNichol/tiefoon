@@ -15,23 +15,19 @@ public:
     }
 
     void grow(std::string term, int doc_id){
-       
-        rTraverse(&root, term);
-
+        Node endpoint;
+        endpoint = *rTraverse(&root, term);
+        endpoint.doc_ids.push_back(doc_id);
         return;
     }
 
     //void rTraverse(std::string const& full_term, std::vector<Node>* curr_leaf, std::string remainder){
-    void rTraverse(std::vector<Node>* curr_leaf, std::string remainder){
+    Node* rTraverse(std::vector<Node>* curr_leaf, std::string remainder){
 		char curr_char = remainder[0];
 		
-		std::cout << "TRAVERSING ON CHAR " << curr_char << std::endl;
-
 		// 1.
-		std::cout << "CURRENT LEAF POINTER: " << curr_leaf << std::endl;
 
         int length = (*curr_leaf).size();
-		std::cout << "LENGHT OF CURRENT VECTOR: " << length << std::endl;
 
         int i = 0; 
 		Node newNode;
@@ -61,7 +57,12 @@ public:
 				
 		// 2. 	
 		if(!remainder[1]){
-			std::cout << "reached bottom yo. current cahracter is " << curr_char << std::endl;	
+//			std::cout << "reached bottom yo. current cahracter is " << curr_char << std::endl;	
+            if(!newNode.endpoint){
+                newNode.endpoint = true;
+                newNode.doc_ids = new std::vector<int>;
+            }
+            return &newNode;
 		}else{
 			remainder = remainder.substr(1, std::string::npos);
 			std::cout << "ABOUT TO CALL TRAVERSE WHILE ON CHAR " << curr_char << std::endl;

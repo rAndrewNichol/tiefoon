@@ -7,6 +7,7 @@ struct Node{
     std::vector<Node>* children;
     char value;
     bool endpoint;
+    std::vector<int> doc_ids;
 
     Node(){
         endpoint = false;
@@ -18,6 +19,9 @@ struct Node{
 		if(!endpoint){
 			children = new std::vector<Node>;
 		}
+        else{
+            doc_ids = new std::vector<int>;
+        }
     }
 };
 
