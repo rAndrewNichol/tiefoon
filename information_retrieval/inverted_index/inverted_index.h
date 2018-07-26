@@ -9,6 +9,9 @@
 class inverted_index{
 
 public:
+	inverted_index(){
+	}
+
 	void feed(std::string content_string){	
 		int curr_char;
 		int i = 0;
