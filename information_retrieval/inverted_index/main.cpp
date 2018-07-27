@@ -4,6 +4,9 @@
 #include "file_reader.h"
 #include <string>
 
+#include <vector>
+#include <iostream>
+
 int main(){
     //Trie t;
     //std::string temp = "bullshit";
@@ -18,7 +21,12 @@ int main(){
 	file_reader reader = file_reader();
 	std::string content = reader.get_contents_line_by_line("text.txt");
 	inverted_index index = inverted_index();
-	index.feed(content); // grows index as far as feed. should probably maintain that data and be able to continue adding 
+	index.feed(content.c_str()); // grows index as far as feed. should probably maintain that data and be able to continue adding 
+	std::string to_find = "and";
+	std::vector<int> response = index.search(to_find);
+	for(int i = 0; i < response.size(); i++){
+		std::cout << response[i] << std::endl;	
+	}
 	// as more sources are added. it should probly also store that corpus in entirety, appended onto the last
 	// body that was fed into it.
     return 0;

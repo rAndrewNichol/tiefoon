@@ -15,9 +15,11 @@ public:
     }
 
     void grow(std::string term, int doc_id){
-        Node* endpoint;
-        endpoint = rTraverse(&root, term);
-        (*endpoint).doc_ids.push_back(doc_id);
+		if(!term.empty()){
+        	Node* endpoint;
+        	endpoint = rTraverse(&root, term);
+        	(*endpoint).doc_ids.push_back(doc_id);
+		}
         return;
     }
 
@@ -41,7 +43,7 @@ public:
 
         int i = 0; 
 		Node newNode;
-		if(i){
+		if(length){
         	while(i < length){
         	    if(curr_char >= (*curr_leaf)[i].value){
 					if(curr_char == (*curr_leaf)[i].value){
@@ -65,20 +67,17 @@ public:
 		} // clean this disgusting mess, u fagit
 	
         Node* referenceNewNode = &((*curr_leaf)[i]);
-		//std::cout << "new node value : " << (*referenceNewNode).value << std::endl;
-		//std::cout << "new node children : " << (*(*referenceNewNode).children).size() << std::endl;
 
 		// 2. 	
 		if(!remainder[1]){
-			//std::cout << "reached bottom yo. current cahracter is " << curr_char << std::endl;	
             if(!(*referenceNewNode).endpoint){
                 (*referenceNewNode).endpoint = true;
-				delete (*referenceNewNode).children;
+				//delete (*referenceNewNode).children; 
+				// no point in deleting the children here. what if a longer string exists ("and" / "andrew")
             }
             return referenceNewNode;
 		}else{
 			remainder = remainder.substr(1, std::string::npos);
-			//std::cout << "ABOUT TO CALL TRAVERSE WHILE ON CHAR " << curr_char << std::endl;
 		    return rTraverse((*referenceNewNode).children, remainder);
 		}
 
