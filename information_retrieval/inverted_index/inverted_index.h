@@ -1,6 +1,8 @@
 #include <string>
+#include <fstream>
+
 #include "trie.h"
-#include "file_reader.h"
+
 
 #ifndef INVERTED_INDEX
 
@@ -8,9 +10,11 @@
 
 class inverted_index{
 
-	// note that max size of this string is 4294967291 characters, so for a proper large
+	// note that max size of this string is 4294967291 characters (at least 4gb on ram), so for a proper large
  	// job, partitionining would be necessary. additionally, it might be best to add
-	// functionality for this to be incrementally stored on disk
+	// functionality for this to be incrementally stored on disk.
+    //
+    //
 	std::string full_string;
 	Trie index;
 
@@ -18,7 +22,7 @@ public:
 	inverted_index(){
 	}
 
-	void feed(const char* curr_char){	
+	void feed_from_string(const char* curr_char){	
 		int doc_id = 0;
 		std::string new_term = "";
 		do{
@@ -58,6 +62,40 @@ public:
 			curr_char++;
 		}while(*curr_char); 
 	}
+        
+    void feed_from_file(const char *file_name){
+        std::ifstream infile;
+        infile.open(file_name);
+
+		std::string new_term = "";
+    	int doc_id = 0;
+        char curr_char;
+        while(infile.get(curr_char)){
+            // this is the same "algorithm" as in feed_from_string(), it was copied rather than generically factored
+            // for simplicity and efficiency
+ 			switch (curr_char){
+				case 9 :
+				case 10:
+				case 11:
+				case 12:
+				case 13:
+				case 32:
+					index.grow(new_term, doc_id);	
+					new_term = "";
+					break;
+				case 33:
+				case 46:
+				case 63:
+					index.grow(new_term, doc_id);
+					new_term  = "";
+					doc_id++;
+					break;
+				default:
+					new_term += curr_char;
+            }
+        }
+        infile.close();
+    }
 
 	std::vector<int> search(std::string to_find){
 		return index.find(to_find);

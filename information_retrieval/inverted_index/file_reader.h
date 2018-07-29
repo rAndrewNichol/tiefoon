@@ -21,6 +21,7 @@ public:
 	    while(std::getline(infile, line)){
 	        contents += line + " ";
 	    }
+        infile.close();
 	    return contents;
 	    // 7.189s/100k runs 
 	}	
