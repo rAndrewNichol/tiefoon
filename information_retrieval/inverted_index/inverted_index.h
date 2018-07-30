@@ -9,14 +9,14 @@
 #define INVERTED_INDEX
 
 class inverted_index{
-
+private:
 	// note that max size of this string is 4294967291 characters (at least 4gb on ram), so for a proper large
  	// job, partitionining would be necessary. additionally, it might be best to add
 	// functionality for this to be incrementally stored on disk.
     //
     //
 	std::string full_string;
-	Trie index;
+	Trie trie; // note that the inverted index data structure itself here is "trie"
 
 public:
 	inverted_index(){
@@ -44,14 +44,14 @@ public:
 				case 13:
 				case 32:
 					// this is a space. index the new term, reset the term.
-					index.grow(new_term, doc_id);	
+					trie.grow(new_term, doc_id);	
 					new_term = "";
 					break;
 				case 33:
 				case 46:
 				case 63:
 					// this is a sentence separation character. index the new term. reset the term, increment the doc_id.
-					index.grow(new_term, doc_id);
+					trie.grow(new_term, doc_id);
 					new_term  = "";
 					doc_id++;
 					break;
@@ -71,8 +71,8 @@ public:
     	int doc_id = 0;
         char curr_char;
         while(infile.get(curr_char)){
-            // this is the same "algorithm" as in feed_from_string(), it was copied rather than generically factored
-            // for simplicity and efficiency
+            // this is the same "algorithm" as in feed_from_string(), it was copied rather 
+            // than generically factored for simplicity and efficiency
  			switch (curr_char){
 				case 9 :
 				case 10:
@@ -80,13 +80,13 @@ public:
 				case 12:
 				case 13:
 				case 32:
-					index.grow(new_term, doc_id);	
+					trie.grow(new_term, doc_id);	
 					new_term = "";
 					break;
 				case 33:
 				case 46:
 				case 63:
-					index.grow(new_term, doc_id);
+					trie.grow(new_term, doc_id);
 					new_term  = "";
 					doc_id++;
 					break;
@@ -97,10 +97,51 @@ public:
         infile.close();
     }
 
-	std::vector<int> search(std::string to_find){
-		return index.find(to_find);
+	Node* search(std::string to_find){
+        return trie.retrieve(to_find);
 	}
 
+    std::vector<int> single_query(std::string to_find){
+         Node* found = search(to_find);    
+         if(found){
+            return (*found).doc_ids;
+         }
+         else{
+             std::vector<int> empty;
+             return empty;
+         }
+    }
+
+    std::vector<int> intersect_postings(std::vector<int>* p1, std::vector<int>* p2){
+        // note that posting lists should be in ascending order by doc_id
+        std::vector<int> result;
+        int i = 0; int j = 0;
+        int length_1 = (*p1).size(); int length_2 = (*p2).size();
+        while(i < length_1 && j < length_2){
+            if((*p1)[i] == (*p2)[j]){
+                result.push_back((*p1)[i]);
+                i++;j++; 
+            }else if((*p1)[i] < (*p2)[j]){
+                i++;
+            }else{
+                j++;
+            }
+        }
+        return result;
+    }
+
+  //std::vector<int> intersect_terms(std::vector<std::string> terms){
+  //    // input ::: vector of strings which each represent a term to be intersected
+  //    std::vector<std::vector<int>> postings;
+  //    // for each term: 
+  //    //    search for the term. put it into a temporary vector
+  //    // STILL THINKING ABOUT BEST WAY TO DO THIS. NOTE THAT NOW HAVE ACCESS TO MAX_FREQUENCY AND MAX_DOC_ID 
+  //    // VIA THE TRIE. (enabling counting sorts etc).
+  //   
+  //}
+
+  //std::vector<int> intersect_multi_postings(std::vector<std::vector<int>> postings, bool pre_sorted = false){
+  //}
 
 };
 

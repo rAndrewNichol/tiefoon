@@ -9,9 +9,13 @@ class Trie{
    
 private: 
     std::vector<Node> root;
+    int max_id;
+    int max_frequency;
 
 public:
     Trie(){
+        max_id = 0;
+        max_frequency = 0;
     }
 
     void grow(std::string term, int doc_id){
@@ -19,6 +23,13 @@ public:
         	Node* endpoint;
         	endpoint = rTraverse(&root, term);
         	(*endpoint).doc_ids.push_back(doc_id);
+            (*endpoint).frequency++;
+            if(doc_id > max_id){
+                max_id = doc_id;
+            }
+            if((*endpoint).frequency > max_frequency){
+                max_frequency = (*endpoint).frequency;
+            }
 		}
         return;
     }
@@ -42,36 +53,63 @@ public:
         int length = (*curr_leaf).size();
 
         int i = 0; 
-		Node newNode;
-		if(length){
-        	while(i < length){
-        	    if(curr_char >= (*curr_leaf)[i].value){
-					if(curr_char == (*curr_leaf)[i].value){
-						newNode = (*curr_leaf)[i]; 		
-					}else{
-						newNode = Node(curr_char);	
-        				(*curr_leaf).insert((*curr_leaf).begin()+i, newNode);
-					}
-        	        break;
-        	    }else if(i == length-1){
-                    i = 0;
-					newNode = Node(curr_char);	
-        			(*curr_leaf).insert((*curr_leaf).begin(), newNode);
-				}
-        	    i++;
-        	}
-		}else{
-			newNode = Node(curr_char);
-        	(*curr_leaf).insert((*curr_leaf).begin(), newNode);
-			
-		} // clean this disgusting mess, u fagit
-	
+		Node newNode = Node(); // declare an empty Node
+
+        // old algo in case something breaks
+        // """
+        //Node newNode;
+
+		//if(length){
+        //	while(i < length){
+        //	    if(curr_char >= (*curr_leaf)[i].value){
+		//			if(curr_char == (*curr_leaf)[i].value){
+		//				newNode = (*curr_leaf)[i]; 		
+		//			}else{
+		//				newNode = Node(curr_char);	
+        //				(*curr_leaf).insert((*curr_leaf).begin()+i, newNode);
+		//			}
+        //	        break;
+        //	    }else if(i == length-1){
+        //          i = 0;
+		//			newNode = Node(curr_char);	
+        //			(*curr_leaf).insert((*curr_leaf).begin(), newNode);
+		//		}
+        //	    i++;
+        //	}
+		//}else{
+		//	newNode = Node(curr_char);
+        //	(*curr_leaf).insert((*curr_leaf).begin(), newNode);
+		//	
+		//}
+        //"""
+
+       	while(i < length){ // technically could be an always true loop since we will always "manually" break
+       	    if(curr_char >= (*curr_leaf)[i].value){
+   				if(curr_char == (*curr_leaf)[i].value){
+   					newNode = (*curr_leaf)[i]; 		
+   				} // otherwise we surpassed the value, we can break with an empty node and the correct i
+       	        break;
+       	    }else if(i == length-1){
+                i = 0; 
+                break;
+   			}
+       	    i++;
+       	}
+        if(newNode.empty()){
+            newNode.value = curr_char;
+            newNode.children = new std::vector<Node> ();
+            // the line below is an alternative to the two lines above (im not sure which i prefer)
+            //newNode = Node(curr_char); 
+        	(*curr_leaf).insert((*curr_leaf).begin() + i, newNode);
+        }
+
         Node* referenceNewNode = &((*curr_leaf)[i]);
 
 		// 2. 	
 		if(!remainder[1]){
             if(!(*referenceNewNode).endpoint){
                 (*referenceNewNode).endpoint = true;
+                (*referenceNewNode).frequency = 0;
 				//delete (*referenceNewNode).children; 
 				// no point in deleting the children here. what if a longer string exists ("and" / "andrew")
             }
@@ -83,7 +121,7 @@ public:
 
     }
 
-    std::vector<int> find(std::string term){
+     Node* retrieve(std::string term){
 		std::vector<Node>* curr_leaf = &root;
 		int i = 0;
 		char curr_char = term[i];
@@ -99,7 +137,7 @@ public:
 			if(j < length){ // this means there was a match
 				if(i == term.length() - 1){
 					if((*curr_leaf)[j].endpoint){
-						return (*curr_leaf)[j].doc_ids;	
+						return &(*curr_leaf)[j];	
 					}
 					else{
 						break;
@@ -110,13 +148,12 @@ public:
 				curr_char = term[i];
 			}
 			else{
-				std::vector<int> empty;
-				return empty;
+                return 0;
 			}
 		} // write this recursively? why? 	
-		std::vector<int> empty_return;
-		return empty_return;
+		return 0;
     }
+   
 };
 
 #define TRIE
