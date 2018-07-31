@@ -30,6 +30,12 @@ public:
             if((*endpoint).frequency > max_frequency){
                 max_frequency = (*endpoint).frequency;
             }
+            if(term == "is"){
+                for(int i = 0; i < (*endpoint).doc_ids.size(); i++){
+                    std::cout << (*endpoint).doc_ids[i] << ", ";
+                }
+                std::cout << std::endl;
+            }
 		}
         return;
     }
@@ -82,10 +88,12 @@ public:
 		//	
 		//}
         //"""
-
+        
+        std::cout << curr_char << "-";
        	while(i < length){ // technically could be an always true loop since we will always "manually" break
        	    if(curr_char >= (*curr_leaf)[i].value){
-   				if(curr_char == (*curr_leaf)[i].value){
+                if(curr_char == (*curr_leaf)[i].value){
+                    std::cout << "!";
    					newNode = (*curr_leaf)[i]; 		
    				} // otherwise we surpassed the value, we can break with an empty node and the correct i
        	        break;
@@ -112,6 +120,8 @@ public:
                 (*referenceNewNode).frequency = 0;
 				//delete (*referenceNewNode).children; 
 				// no point in deleting the children here. what if a longer string exists ("and" / "andrew")
+            }else{
+                std::cout <<"I AM ALREADY AN ENDPOINT" << std::endl;
             }
             return referenceNewNode;
 		}else{

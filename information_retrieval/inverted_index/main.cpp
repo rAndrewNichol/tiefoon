@@ -15,8 +15,11 @@ int main(){
 	//index.feed_from_string(content.c_str()); 
 
     index.feed_from_file("text.txt");
-	std::string to_find = "and";
+	std::string to_find = "is";
 	std::vector<int> response = index.single_query(to_find);
+    //std::vector<std::string> to_find;
+    //to_find.push_back("and");to_find.push_back("is");
+	//std::vector<int> response = index.intersect_terms(to_find);
     
     //int v1[5] = {1,2,3,5,7};
     //int v2[3] = {3,6,7};
@@ -25,9 +28,9 @@ int main(){
     //std::vector<int> response = index.intersect_postings(&post1, &post2);
 
 
-    for(int i = 0; i < response.size(); i++){
-		std::cout << response[i] << std::endl;	
-	}
+    //for(int i = 0; i < response.size(); i++){
+    //	std::cout << response[i] << std::endl;	
+	//}
 
     //Node newNode = Node();
     //if(newNode.empty()){

@@ -130,17 +130,46 @@ public:
         return result;
     }
 
-  //std::vector<int> intersect_terms(std::vector<std::string> terms){
-  //    // input ::: vector of strings which each represent a term to be intersected
-  //    std::vector<std::vector<int>> postings;
-  //    // for each term: 
-  //    //    search for the term. put it into a temporary vector
-  //    // STILL THINKING ABOUT BEST WAY TO DO THIS. NOTE THAT NOW HAVE ACCESS TO MAX_FREQUENCY AND MAX_DOC_ID 
-  //    // VIA THE TRIE. (enabling counting sorts etc).
-  //   
-  //}
+  std::vector<int> intersect_terms(std::vector<std::string> terms){
+      // input ::: vector of strings which each represent a term to be intersected
+      
+      // for each term: 
+      //    search for the term. put it into the capture vector (behind the index which it surpasses in frequency). 
+      // create a new vector from that vector that is each of the nodes' postings. this is the return
+      std::vector<Node> capture;
+      int num_terms = terms.size();
+      for(int i = 0; i < num_terms; i++){
+        Node* found = search(terms[i]);
+        if(found){
+            int j = 0; int length = capture.size();  
+            while(j < length){
+                if((*found).frequency > capture[j].frequency){
+                    break;
+                }
+                j++;
+            } 
+            capture.insert(capture.begin() + j, *found);
+        }
+      }
+      // now convert to vector of postings
+      std::vector< std::vector<int> > postings;
+      int num_found = capture.size();
+      for(int i = 0; i < num_found; i++){
+        postings.push_back(capture[i].doc_ids);
+      }
 
-  //std::vector<int> intersect_multi_postings(std::vector<std::vector<int>> postings, bool pre_sorted = false){
+      for(int i = 0; i < postings.size(); i++){
+        for(int j = 0; j < postings[i].size(); j++){
+            std::cout << postings[i][j] << ", ";
+        } 
+        std::cout << std::endl;
+      }
+      //return intersect_multi_postings(postings, pre_sorted = true);
+      return postings[0];
+  }
+
+  //std::vector<int> intersect_multi_postings(std::vector< std::vector<int> > postings, bool pre_sorted = false){
+  //    // algorithm from stanfrod IR book
   //}
 
 };

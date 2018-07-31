@@ -1,0 +1,2 @@
+- fix non-uniqueness in doc ids for each term
+    - ie if a term appears twice in doc 7, it will have doc_ids 7, 7 
