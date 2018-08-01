@@ -157,20 +157,27 @@ public:
       for(int i = 0; i < num_found; i++){
         postings.push_back(capture[i].doc_ids);
       }
-
-      for(int i = 0; i < postings.size(); i++){
-        for(int j = 0; j < postings[i].size(); j++){
-            std::cout << postings[i][j] << ", ";
-        } 
-        std::cout << std::endl;
-      }
+      
       //return intersect_multi_postings(postings, pre_sorted = true);
-      return postings[0];
   }
 
-  //std::vector<int> intersect_multi_postings(std::vector< std::vector<int> > postings, bool pre_sorted = false){
-  //    // algorithm from stanfrod IR book
-  //}
+  std::vector<int> intersect_multi_postings(std::vector< std::vector<int> > postings, bool pre_sorted = false){
+      // algorithm from stanfrod IR book
+      if(!pre_sorted){
+        //sort
+          std::cout << "sorting" << std::endl;
+      }
+      // now intersect the postings
+      std::vector<int> intersection;
+      int num_postings = postings.size();
+      if(!num_postings){
+        return intersection; 
+      }
+      for(int i = 1; i < num_postings; i++){
+        //intersection = intersect_postings(postings[i-1], postings[i]);
+      }
+      
+  }
 
 };
 
