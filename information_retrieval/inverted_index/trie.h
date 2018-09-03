@@ -22,6 +22,12 @@ public:
 		if(!term.empty()){
         	Node* endpoint;
         	endpoint = rTraverse(&root, term);
+            if( !(endpoint->doc_ids).empty() && (endpoint->doc_ids).back() == doc_id ){
+                // as of now we keep doc_ids unique, which means 
+                // frequencies also represent the number of docs
+                // that the term appears in, rather than total appearances
+                return;
+            }
         	(*endpoint).doc_ids.push_back(doc_id);
             (*endpoint).frequency++;
             if(doc_id > max_id){
@@ -90,10 +96,6 @@ public:
    				} // otherwise we surpassed the value, we can break with an empty node and the correct i
        	        break;
             }
-            //else if(i == length-1){
-            //    i = 0; 
-            //    break;
-   			//}
        	    i++;
        	}
         if(newNode.empty()){
@@ -149,7 +151,7 @@ public:
 			else{
                 return 0;
 			}
-		} // write this recursively? why? 	
+		}
 		return 0;
     }
    

@@ -37,11 +37,7 @@ public:
 			//if that stop character was a new sentence character, increment the 
 			//document id.
 			switch (*curr_char){
-				case 9 :
-				case 10:
-				case 11:
-				case 12:
-				case 13:
+				case 9 ... 13:
 				case 32:
 					// this is a space. index the new term, reset the term.
 					trie.grow(new_term, doc_id);	
@@ -55,9 +51,18 @@ public:
 					new_term  = "";
 					doc_id++;
 					break;
-				default:
-					//otherwise: add this char to the new term.
+                case 65 ... 90:
+                    // this is an upper-case character. convert to lowercase and add it to the term
+                    new_term += *curr_char + 32;
+                    break;
+				case 97 ... 122:
+                case 45:
+                    // this is a lower-case character or a hyphen. add it to the term
 					new_term += *curr_char;
+                    break;
+                default:
+                    // otherwise, skip this character
+                    break;
 			}
 			curr_char++;
 		}while(*curr_char); 
@@ -74,11 +79,7 @@ public:
             // this is the same "algorithm" as in feed_from_string(), it was copied rather 
             // than generically factored for simplicity and efficiency
  			switch (curr_char){
-				case 9 :
-				case 10:
-				case 11:
-				case 12:
-				case 13:
+				case 9 ... 13:
 				case 32:
 					trie.grow(new_term, doc_id);	
 					new_term = "";
@@ -90,8 +91,17 @@ public:
 					new_term  = "";
 					doc_id++;
 					break;
-				default:
+                case 65 ... 90:
+                    new_term += curr_char + 32;
+                    break;
+				case 97 ... 122:
+                case 45:
+                    // this is a lower-case character or a hyphen. add it to the term
 					new_term += curr_char;
+                    break;
+                default:
+                    // otherwise, skip this character
+                    break;
             }
         }
         infile.close();
@@ -150,6 +160,9 @@ public:
             } 
             capture.insert(capture.begin() + j, found);
         }
+        else{
+          capture.insert(capture.begin(), new Node);
+        }
       }
       // now convert to vector of postings
       std::vector< std::vector<int>* > postings;
@@ -157,12 +170,16 @@ public:
       for(int i = 0; i < num_found; i++){
         postings.push_back(&((*capture[i]).doc_ids));
       }
-      
-	  //for(int i = 0; i< num_found;i++){
-	  //	for(int j = 0; j < (*postings[i]).size(); j++){
-	  //  	std::cout << (*postings[i])[j] << std::endl;
-	  //  }
-      //}
+
+      for(int i = 0; i < postings.size(); i++){
+        std::cout << "YES" << std::endl;
+        for(int j=0;j < postings[i] -> size(); j++){
+          std::cout << (*postings[i])[j];
+        }
+        std::cout << std::endl;
+      }
+
+      // note that postings are already sorted in ascending order of frequency here. 
       return intersect_multi_postings(postings, true);
   }
 

@@ -1,4 +1,7 @@
-- fix non-uniqueness in doc ids for each term
-    - ie if a term appears twice in doc 7, it will have doc_ids 7, 7 
-- clean terms before growing in the index (lowercase, remove punctuation? etc)
 https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
+
+
+eventually:
+    support for multiple text files as input (wildcards)
+    support for buffering file input rather than loading all into memory
+    support for index caching while building rather than holding all in memory
