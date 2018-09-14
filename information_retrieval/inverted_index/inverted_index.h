@@ -22,48 +22,52 @@ public:
 	inverted_index(){
 	}
 
+    void process_char(char c, int &doc_id, std::string &new_term){
+       // whitespace characters: 9-13, 32
+       // sentence separation characters:33, 46, 63
+       // other punctuation: 34-45, 47, 58-62, 64, 91-96, 123-126
+       // standard alpha (upper): 65-90, (lower): 97-122
+       	
+       //store index when starting a new term
+       //increment index until end of term. when encounter a whitespace or new
+       //sentence character, index that term into the document.
+       //if that stop character was a new sentence character, increment the 
+       //document id.
+       
+       switch (c){ 
+           case 9 ... 13: case 32:
+       		// this is a space. index the new term, reset the term.
+       		trie.grow(new_term, doc_id);	
+       		new_term = "";
+       		break;
+       	case 33:
+       	case 46:
+       	case 63:
+       		// this is a sentence separation character. index the new term. reset the term, increment the doc_id.
+       		trie.grow(new_term, doc_id);
+       		new_term  = "";
+       		doc_id++;
+       		break;
+           case 65 ... 90:
+               // this is an upper-case character. convert to lowercase and add it to the term
+               new_term += c + 32;
+               break;
+       	case 97 ... 122:
+           case 45:
+               // this is a lower-case character or a hyphen. add it to the term
+       		new_term += c;
+               break;
+           default:
+               // otherwise, skip this character
+               break;
+        }   
+    }
+
 	void feed_from_string(const char* curr_char){	
 		int doc_id = 0;
 		std::string new_term = "";
 		do{
-			// whitespace characters: 9-13, 32
-			// sentence separation characters:33, 46, 63
-			// other punctuation: 34-45, 47, 58-62, 64, 91-96, 123-126
-			// standard alpha (upper): 65-90, (lower): 97-122
-				
-			//store index when starting a new term
-			//increment index until end of term. when encounter a whitespace or new
-			//sentence character, index that term into the document.
-			//if that stop character was a new sentence character, increment the 
-			//document id.
-			switch (*curr_char){
-				case 9 ... 13:
-				case 32:
-					// this is a space. index the new term, reset the term.
-					trie.grow(new_term, doc_id);	
-					new_term = "";
-					break;
-				case 33:
-				case 46:
-				case 63:
-					// this is a sentence separation character. index the new term. reset the term, increment the doc_id.
-					trie.grow(new_term, doc_id);
-					new_term  = "";
-					doc_id++;
-					break;
-                case 65 ... 90:
-                    // this is an upper-case character. convert to lowercase and add it to the term
-                    new_term += *curr_char + 32;
-                    break;
-				case 97 ... 122:
-                case 45:
-                    // this is a lower-case character or a hyphen. add it to the term
-					new_term += *curr_char;
-                    break;
-                default:
-                    // otherwise, skip this character
-                    break;
-			}
+            process_char(*curr_char, doc_id, new_term);
 			curr_char++;
 		}while(*curr_char); 
 	}
@@ -76,34 +80,8 @@ public:
     	int doc_id = 0;
         char curr_char;
         while(infile.get(curr_char)){
-            // this is the same "algorithm" as in feed_from_string(), it was copied rather 
-            // than generically factored for simplicity and efficiency
- 			switch (curr_char){
-				case 9 ... 13:
-				case 32:
-					trie.grow(new_term, doc_id);	
-					new_term = "";
-					break;
-				case 33:
-				case 46:
-				case 63:
-					trie.grow(new_term, doc_id);
-					new_term  = "";
-					doc_id++;
-					break;
-                case 65 ... 90:
-                    new_term += curr_char + 32;
-                    break;
-				case 97 ... 122:
-                case 45:
-                    // this is a lower-case character or a hyphen. add it to the term
-					new_term += curr_char;
-                    break;
-                default:
-                    // otherwise, skip this character
-                    break;
-            }
-        }
+            process_char(curr_char, doc_id, new_term);
+        }	
         infile.close();
     }
 
@@ -171,13 +149,14 @@ public:
         postings.push_back(&((*capture[i]).doc_ids));
       }
 
-      for(int i = 0; i < postings.size(); i++){
-        std::cout << "YES" << std::endl;
-        for(int j=0;j < postings[i] -> size(); j++){
-          std::cout << (*postings[i])[j];
-        }
-        std::cout << std::endl;
-      }
+      // PRINTS FOR TESTING
+      //for(int i = 0; i < postings.size(); i++){
+      //  std::cout << "YES" << std::endl;
+      //  for(int j=0;j < postings[i] -> size(); j++){
+      //    std::cout << (*postings[i])[j];
+      //  }
+      //  std::cout << std::endl;
+      //}
 
       // note that postings are already sorted in ascending order of frequency here. 
       return intersect_multi_postings(postings, true);

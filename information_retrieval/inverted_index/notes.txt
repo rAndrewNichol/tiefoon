@@ -1,7 +1,17 @@
 https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 
+now:
+    improve parsing for edge cases (hyphenated, apostrophe, etc)
+    create inverted index on disk as per https://stackoverflow.com/questions/25906136/storing-inverted-index CleoR
+        - idea : store this ^^^ on disk, but store {doc_id:position_to_seek} in memory as a hashmap (any modern distribution should be able to handle this)
+        - question : how does one deploy an app like elasticsearch with c++ rather than just execute (i guess the restful aspect is a large part)
+            but i wonder if i could deploy it as an active executable (how) and write a python wrapper api to make requests
+    generic boolean queries
+
 
 eventually:
+    support for user defined document delimiter and doc-by-doc indexing (semi-structured docs? like JSON)
     support for multiple text files as input (wildcards)
     support for buffering file input rather than loading all into memory
     support for index caching while building rather than holding all in memory
+    restful or at least continuously running background process (but then cant access from non-local) + python api?
