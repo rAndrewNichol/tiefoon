@@ -2,6 +2,7 @@ https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 
 now:
     improve parsing for edge cases (hyphenated, apostrophe, etc)
+    replace dereference/attribute syntax with "->"
     create inverted index on disk as per https://stackoverflow.com/questions/25906136/storing-inverted-index CleoR
         - idea : store this ^^^ on disk, but store {doc_id:position_to_seek} in memory as a hashmap (any modern distribution should be able to handle this)
         - question : how does one deploy an app like elasticsearch with c++ rather than just execute (i guess the restful aspect is a large part)
