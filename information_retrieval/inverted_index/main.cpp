@@ -8,11 +8,11 @@
 #include <iostream>
 
 int main(){
-	inverted_index index = inverted_index();
+    inverted_index index = inverted_index();
 	
-	//file_reader reader = file_reader();
+    //file_reader reader = file_reader();
     //std::string content = reader.get_contents_line_by_line("text.txt");
-	//index.feed_from_string(content.c_str()); 
+    //index.feed_from_string(content.c_str()); 
 
     index.feed_from_file("text.txt");
 	//std::string to_find = "and";
